@@ -17,19 +17,19 @@ def scrape_wikipedia_friends_episodes():
         print(f"Error: {e}")
         return
 
-    # Parse the HTML content
+    # html.parser
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # Extract and save data from the Wikipedia page
+    # extract and save data from the Wikipedia page
     with open("group_3_task2.csv", "w", newline="") as csv_file:
         writer = csv.writer(csv_file)
 
-        # Write the header row with the desired columns
+        # header row 
         writer.writerow(
             ["Episode number", "Directed by", "Written by", "Original air date", "Prod. code",
              "U.S. viewers (millions)"])
 
-        # Extract data and write to the CSV
+        # extract data and write to the CSV
         for row in soup.select("table.wikitable tbody tr")[2:]:  # Skip the first two header rows
             columns = row.find_all("td")
             if len(columns) >= 8:  # Make sure you have enough columns
